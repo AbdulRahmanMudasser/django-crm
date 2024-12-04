@@ -20,8 +20,8 @@ from django.urls import path
 from accounts import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.Home),
-    path('about/', views.About),
-    path('contact/', views.Contact),
+    path('admin/', admin.site.urls),    
+    path('', views.home),
+    path('products/', views.products),
+    path('customer/', views.customer),
 ]

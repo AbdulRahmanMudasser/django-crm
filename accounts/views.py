@@ -1,13 +1,10 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+def home(request):
+    return render(request=request, template_name='accounts/dashboard.html')
 
-# Create your views here.
-def Home(request):
-    return HttpResponse("Home Page")
+def products(request):
+    return render(request=request, template_name='accounts/product.html')
 
-def About(request):
-    return HttpResponse("About Page")
-
-def Contact(request):
-    return HttpResponse("Contact Page")
+def customer(request):
+    return render(request=request, template_name='accounts/customer.html')
