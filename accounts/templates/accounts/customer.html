@@ -1,11 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM</title>
-</head>
-<body>
-    <h1>Customers Page</h1>
-</body>
-</html>
+{% extends "accounts/main.html" %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center text-white  mb-3" id="total-orders">
+                <div class="card-header">
+                    <h5 class="card-title">Customer</h5>
+                    <hr class="my-1 border-white">
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn custom-button-1 btn-sm">Update Customer</button>
+
+                    <button type="button" class="btn custom-button-1 btn-sm">Delete Customer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center text-white  mb-3" id="orders-delivered">
+                <div class="card-header">
+                    <h5 class="card-title">Contact Information</h5>
+                    <hr class="my-1 border-white">
+                </div>
+                <div class="card-body text-start">
+                    <p>Email:</p>
+                    <p>Phone:</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md">
+            <div class="card text-center text-white  mb-3" id="orders-pending">
+                <div class="card-header">
+                    <h5 class="card-title">Total Orders</h5>
+                    <hr class="my-1 border-white">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <form action="" method="get">
+                <button class="btn custom-button" type="submit">Search Customer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Date Orderd</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
