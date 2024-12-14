@@ -1,0 +1,46 @@
+#logo {}
+
+body {
+    background-color: #ebeff5;
+}
+
+#total-orders {
+    background-color: #2b3035;
+}
+
+
+#orders-delivered {
+    background-color: #2b3035;
+}
+
+#orders-pending {
+    background-color: #2b3035;
+}
+
+.custom-button {
+    background-color: #2b3035;
+    color: white;
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.custom-button-1 {
+    background-color: white;
+    color: black;
+    border: none;
+    width: 100%;
+    margin-bottom: 9px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+}
+
+.logo-1 {
+    width: 10vw;
+    min-width: 3px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
