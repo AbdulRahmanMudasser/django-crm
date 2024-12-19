@@ -16,12 +16,16 @@
                 <tr>
                     <th>Customer</th>
                     <th>Orders</th>
+                    <th></th>
                 </tr>
 
                 {% for customer in customers %}
                 <tr>
                     <td>{{ customer.name }}</td>
                     <td>{{ customer.phone }}</td>
+                    <td style="text-align: end;">
+                        <a href="{% url 'customer' customer.id %}" class="btn btn-sm custom-button">View Profile</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -38,8 +42,8 @@
                     <th>Product</th>
                     <th>Date Orderd</th>
                     <th>Status</th>
-                    <th style="text-align: center;">Update</th>
-                    <th style="text-align: center;">Remove</th>
+                    <!-- <th style="text-align: center;">Update</th>
+                    <th style="text-align: center;">Remove</th> -->
                 </tr>
 
                 {% for order in orders %}
@@ -47,11 +51,11 @@
                     <td>{{ order.product }}</td>
                     <td>{{ order.date_created }}</td>
                     <td>{{ order.status }}</td>
-                    <td style="text-align: center;">
-                        <a href="" style="text-decoration: none; color: red;">Update Order</a>
+                    <td style="text-align: end;">
+                        <a href="" class="btn btn-sm custom-button">Update Order</a>
                     </td>
-                    <td style="text-align: center;">
-                        <a href="" style="text-decoration: none; color: red;">Remove Order</a>
+                    <td style="text-align: end;">
+                        <a href="" class="btn btn-sm custom-button">Delete Order</a>
                     </td>
                 </tr>
                 {% endfor %}

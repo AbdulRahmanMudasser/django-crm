@@ -72,8 +72,8 @@
                     <th>Category</th>
                     <th>Date Orderd</th>
                     <th>Status</th>
-                    <th style="text-align: center;">Update</th>
-                    <th style="text-align: center;">Remove</th>
+                    <!-- <th style="text-align: center;">Update</th>
+                    <th style="text-align: center;">Remove</th> -->
                 </tr>
 
                 {% for order in orders %}
@@ -82,8 +82,8 @@
                         <td>{{ order.product.category }}</td>
                         <td>{{ order.date_created }}</td>
                         <td>{{ order.status }}</td>
-                        <td style="text-align: center;"><button class="btn btn-sm custom-button" type="submit">Update Order</button></td>
-                        <td style="text-align: center;"><button class="btn btn-sm custom-button" type="submit">Remove Order</button></td>
+                        <td style="text-align: end;"><button class="btn btn-sm custom-button" type="submit">Update Order</button></td>
+                        <td style="text-align: end;"><button class="btn btn-sm custom-button" type="submit">Remove Order</button></td>
                     </tr>
                 {% endfor %}
             </table>
