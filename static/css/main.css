@@ -38,6 +38,10 @@ body {
     font-weight: 500;
 }
 
+#center-text-alignment {
+    text-align: center;
+}
+
 .logo-1 {
     width: 10vw;
     min-width: 3px;

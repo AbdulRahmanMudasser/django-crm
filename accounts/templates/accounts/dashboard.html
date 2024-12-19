@@ -11,13 +11,19 @@
         <h5>CUSTOMERS</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn custom-button btn-sm btn-block" href="">Create Customer</a>
+            <a class="btn custom-button btn-sm btn-block" href="" style="margin-bottom: 20px">Create Customer</a>
             <table class="table table-sm">
                 <tr>
-                    <th></th>
                     <th>Customer</th>
                     <th>Orders</th>
                 </tr>
+
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.phone }}</td>
+                </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
@@ -26,15 +32,29 @@
         <h5>LAST 5 ORDERS</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn custom-button btn-sm btn-block" href="">Create Order</a>
+            <a class="btn custom-button btn-sm btn-block" href="" style="margin-bottom: 20px">Create Order</a>
             <table class="table table-sm">
                 <tr>
                     <th>Product</th>
                     <th>Date Orderd</th>
                     <th>Status</th>
-                    <th>Update</th>
-                    <th>Remove</th>
+                    <th style="text-align: center;">Update</th>
+                    <th style="text-align: center;">Remove</th>
                 </tr>
+
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.product }}</td>
+                    <td>{{ order.date_created }}</td>
+                    <td>{{ order.status }}</td>
+                    <td style="text-align: center;">
+                        <a href="" style="text-decoration: none; color: red;">Update Order</a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="" style="text-decoration: none; color: red;">Remove Order</a>
+                    </td>
+                </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
