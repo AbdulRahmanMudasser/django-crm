@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import *
 from .models import *
 
 # Home View
@@ -21,6 +22,9 @@ def home(request):
     # Get Pending Orders Count
     pending_orders = orders.filter(status="Pending").count()
     
+    # Get Orders Out for Delivery
+    out_for_delivery_orders = orders.filter(status="Out for Delivery").count()
+    
     context = {
         'customers': customers,
         'orders': orders,
@@ -28,6 +32,7 @@ def home(request):
         'total_orders': total_orders,
         'delivered_orders': delivered_orders,
         'pending_orders': pending_orders,
+        'out_for_delivery_orders': out_for_delivery_orders,
     }
     
     return render(request,'accounts/dashboard.html', context)
@@ -64,6 +69,90 @@ def customer(request, pk):
 
 # Create Order View
 def create_order(request):
-    context = {}
+    # Order Form
+    form = OrderForm()
+    
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = OrderForm(request.POST)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Home Page
+            return redirect('/')
+    
+    context = {
+        'form': form,
+    }
     
     return render(request, 'accounts/order_form.html', context)
+
+# Update Order View
+def update_order(request, pk):
+    # Get Order With id
+    order = Order.objects.get(id=pk)
+    
+    # Order Form
+    form = OrderForm(instance=order)
+    
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = OrderForm(request.POST, instance=order)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Home Page
+            return redirect('/')
+    
+    context = {
+        'form': form
+    }
+    
+    return render(request, 'accounts/order_form.html', context)
+
+# Delete Order View
+def delete_order(request, pk):
+    # Get Order With id
+    order = Order.objects.get(id=pk)
+    
+    if request.method == 'POST':
+        # Delete Order
+        order.delete()
+        
+        # Redirect to Home Page
+        return redirect('/')
+    
+    context = {
+        'order': order,
+    }
+    
+    return render(request, 'accounts/delete_form.html', context)
+
+# Create Customer View
+def create_customer(request):
+    # Customer Form
+    form = CustomerForm()
+    
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = CustomerForm(request.POST)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Home Page
+            return redirect('/')
+    
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'accounts/customer_form.html', context)

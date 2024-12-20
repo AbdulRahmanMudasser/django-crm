@@ -82,8 +82,12 @@
                         <td>{{ order.product.category }}</td>
                         <td>{{ order.date_created }}</td>
                         <td>{{ order.status }}</td>
-                        <td style="text-align: center;"><button class="btn btn-sm custom-button" type="submit">Update Order</button></td>
-                        <td style="text-align: center;"><button class="btn btn-sm custom-button" type="submit">Remove Order</button></td>
+                        <td style="text-align: center;">
+                            <a href="{% url "update_order" order.id %}" class="btn btn-sm custom-button">Update Order</a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a href="{% url "delete_order" order.id %}" class="btn btn-sm custom-button">Delete Order</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
