@@ -36,14 +36,14 @@
         <h5>LAST 5 ORDERS</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn custom-button btn-sm btn-block" href="" style="margin-bottom: 20px">Create Order</a>
+            <a class="btn custom-button btn-sm btn-block" href="{% url "create_order" %}" style="margin-bottom: 20px">Create Order</a>
             <table class="table table-sm">
                 <tr>
                     <th>Product</th>
                     <th>Date Orderd</th>
                     <th>Status</th>
-                    <!-- <th style="text-align: center;">Update</th>
-                    <th style="text-align: center;">Remove</th> -->
+                    <th style="text-align: center;">Update</th>
+                    <th style="text-align: center;">Remove</th>
                 </tr>
 
                 {% for order in orders %}
@@ -51,10 +51,10 @@
                     <td>{{ order.product }}</td>
                     <td>{{ order.date_created }}</td>
                     <td>{{ order.status }}</td>
-                    <td style="text-align: end;">
+                    <td style="text-align: center;">
                         <a href="" class="btn btn-sm custom-button">Update Order</a>
                     </td>
-                    <td style="text-align: end;">
+                    <td style="text-align: center;">
                         <a href="" class="btn btn-sm custom-button">Delete Order</a>
                     </td>
                 </tr>

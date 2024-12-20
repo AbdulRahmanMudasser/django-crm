@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 
+# Home View
 def home(request):
     # Get Customers
     customers = Customer.objects.all()
@@ -31,6 +32,7 @@ def home(request):
     
     return render(request,'accounts/dashboard.html', context)
 
+# Products View
 def products(request):
     # Get Products
     products = Product.objects.all()
@@ -41,6 +43,7 @@ def products(request):
     
     return render(request, 'accounts/product.html', context)
 
+# Customer View
 def customer(request, pk):
     # Get Customer With id
     customer = Customer.objects.get(id=pk)
@@ -58,3 +61,9 @@ def customer(request, pk):
     }
     
     return render(request, 'accounts/customer.html', context)
+
+# Create Order View
+def create_order(request):
+    context = {}
+    
+    return render(request, 'accounts/order_form.html', context)
