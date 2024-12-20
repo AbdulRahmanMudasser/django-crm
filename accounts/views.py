@@ -86,6 +86,7 @@ def create_order(request):
     
     context = {
         'form': form,
+        'function': 'Create Order'
     }
     
     return render(request, 'accounts/order_form.html', context)
@@ -111,7 +112,8 @@ def update_order(request, pk):
             return redirect('/')
     
     context = {
-        'form': form
+        'form': form,
+        'function': 'Update Order'
     }
     
     return render(request, 'accounts/order_form.html', context)
@@ -153,6 +155,7 @@ def create_customer(request):
     
     context = {
         'form': form,
+        'function': 'Create Customer'
     }
     
     return render(request, 'accounts/customer_form.html', context)
