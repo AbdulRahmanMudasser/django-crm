@@ -1,4 +1,43 @@
-{% extends "accounts/main.html." %}
+{% extends "accounts/main.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white text-center">
+                    <h4>{{ function }}</h4>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger mt-1">
+                                    {{ field.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <input type="submit" value="{{ function }}" class="btn custom-button btn-sm">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% comment %} {% extends "accounts/main.html" %}
 
 {% load static %}
 
@@ -12,4 +51,4 @@
     <input type="submit" value="{{ function }}">
 </form>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}

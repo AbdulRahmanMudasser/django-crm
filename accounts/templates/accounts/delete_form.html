@@ -4,13 +4,21 @@
 
 {% block content %}
 
-<p>Are You Sure You Want To Delete "{{ order }}"?</p>
+<br>
 
-<form action="{% url 'delete_order' order.id %}" method="post">
-    {% csrf_token %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-md-3">
+        <div class="card card-body text-center">
+            <p>Are You Sure You Want To Delete "{{ order }}"?</p>
 
-    <a href="{% url "home" %}" class="btn btn-sm custom-button">Cancel</a>
-    <button type="submit" class="btn btn-sm custom-button">Confirm</button>
-</form>
+            <form action="{% url 'delete_order' order.id %}" method="post">
+                {% csrf_token %}
+
+                <a href="{% url 'home' %}" class="btn btn-sm custom-button">Cancel</a>
+                <button type="submit" class="btn btn-sm custom-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
