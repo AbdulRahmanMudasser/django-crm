@@ -9,10 +9,12 @@
         <div class="col-md">
             <div class="card text-center text-white  mb-3" id="total-orders">
                 <div class="card-header">
-                    <h5 class="card-title">Customer</h5>
+                    <h5 class="card-title">Customer Information</h5>
                     <hr class="my-1 border-white">
                 </div>
                 <div class="card-body">
+                    <a href="{% url 'create_order' customer.id %}" class="btn btn-sm custom-button-1">Create New Customer Order</a>
+
                     <button type="button" class="btn custom-button-1 btn-sm">Update Customer</button>
 
                     <button type="button" class="btn custom-button-1 btn-sm">Delete Customer</button>
@@ -29,6 +31,7 @@
                     <hr class="my-1 border-white">
                 </div>
                 <div class="card-body text-start">
+                    <p>Name: {{ customer.name }}</p>
                     <p>Email: {{ customer.email }}</p>
                     <p>Phone: {{ customer.phone }}</p>
                 </div>

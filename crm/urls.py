@@ -17,7 +17,7 @@ urlpatterns = [
     path('customers/<str:pk>', views.customer, name='customer'),
     
     # Create Order URL
-    path('create_order', views.create_order, name='create_order'),
+    path('create_order/<str:pk>', views.create_order, name='create_order'),
     
     # Update Order URL
     path('update_order/<str:pk>', views.update_order, name='update_order'),

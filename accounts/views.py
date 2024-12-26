@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.forms import inlineformset_factory
 from .forms import *
 from .models import *
 
@@ -68,13 +69,25 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', context)
 
 # Create Order View
-def create_order(request):
+def create_order(request, pk):
+    # Instance of Form Set
+    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), can_delete=False, extra=3)
+    
+    # Get Customer With pk
+    customer = get_object_or_404(Customer, id=pk)
+    
     # Order Form
-    form = OrderForm()
+    # form = OrderForm(initial={'customer': customer})
+    
+    # Order Form Set
+    form = OrderFormSet(queryset=Order.objects.none(), instance=customer)
     
     if request.method == 'POST':
         # Process Submitted Data
-        form = OrderForm(request.POST)
+        # form = OrderForm(request.POST)
+        
+        # Process Submitted Data
+        form = OrderFormSet(request.POST, instance=customer)
         
         # Check if Form is Valid
         if form.is_valid():
@@ -82,7 +95,7 @@ def create_order(request):
             form.save()
             
             # Redirect to Home Page
-            return redirect('/')
+            return redirect('home')
     
     context = {
         'form': form,
@@ -109,7 +122,7 @@ def update_order(request, pk):
             form.save()
             
             # Redirect to Home Page
-            return redirect('/')
+            return redirect('home')
     
     context = {
         'form': form,

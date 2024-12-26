@@ -4,12 +4,44 @@
 
 {% block content %}
 
-<form action="" method="post">
-    {% csrf_token %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white text-center">
+                    <h4>{{ function }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {% if function == "Create Order" %}
+                            {{ form.management_form }}
 
-    {{ form }}
+                            {% for forms in form %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5>Order Item {{ forloop.counter }}</h5>
+                                        {{ forms.as_p }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    {{ form.as_p }}
+                                </div>
+                            </div>
+                        {% endif %}
 
-    <input type="submit" value="{{ function }}">
-</form>
+                        <div class="d-flex justify-content-center mt-4">
+                            <input type="submit" value="{{ function }}" class="btn btn-dark custom-button">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

@@ -20,9 +20,11 @@
                 </tr>
 
                 {% for customer in customers %}
+
                 <tr>
                     <td>{{ customer.name }}</td>
                     <td>{{ customer.phone }}</td>
+                    
                     <td style="text-align: center;">
                         <a href="{% url 'customer' customer.id %}" class="btn btn-sm custom-button">View Profile</a>
                     </td>
@@ -36,7 +38,9 @@
         <h5>LAST 5 ORDERS</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn custom-button btn-sm btn-block" href="{% url "create_order" %}" style="margin-bottom: 20px">Create Order</a>
+
+            {% comment %} <a class="btn custom-button btn-sm btn-block" href="{% url "create_order" %}" style="margin-bottom: 20px">Create Order</a> {% endcomment %}
+            
             <table class="table table-sm">
                 <tr>
                     <th>Product</th>
@@ -51,6 +55,7 @@
                     <td>{{ order.product }}</td>
                     <td>{{ order.date_created }}</td>
                     <td>{{ order.status }}</td>
+
                     <td style="text-align: center;">
                         <a href="{% url "update_order" order.id %}" class="btn btn-sm custom-button">Update Order</a>
                     </td>
