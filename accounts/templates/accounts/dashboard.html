@@ -16,7 +16,7 @@
                 <tr>
                     <th>Customer</th>
                     <th>Orders</th>
-                    <th style="text-align: center;">Customer Profile</th>
+                    <th style="text-align: center; width: 25%;">Customer Profile</th>
                 </tr>
 
                 {% for customer in customers %}
@@ -25,7 +25,7 @@
                     <td>{{ customer.name }}</td>
                     <td>{{ customer.phone }}</td>
                     
-                    <td style="text-align: center;">
+                    <td style="text-align: center; width: 25%;">
                         <a href="{% url 'customer' customer.id %}" class="btn btn-sm custom-button">View Profile</a>
                     </td>
                 </tr>
@@ -46,8 +46,12 @@
                     <th>Product</th>
                     <th>Date Orderd</th>
                     <th>Status</th>
-                    <th style="text-align: center;">Update</th>
-                    <th style="text-align: center;">Remove</th>
+
+                    <th></th>
+                    <th></th>
+                    
+                    {% comment %} <th style="text-align: center; width: 15%;">Update</th>
+                    <th style="text-align: center; width: 15%;">Remove</th> {% endcomment %}
                 </tr>
 
                 {% for order in orders %}
@@ -56,11 +60,11 @@
                     <td>{{ order.date_created }}</td>
                     <td>{{ order.status }}</td>
 
-                    <td style="text-align: center;">
-                        <a href="{% url "update_order" order.id %}" class="btn btn-sm custom-button">Update Order</a>
+                    <td style="text-align: center; width: 10%;">
+                        <a href="{% url "update_order" order.id %}" class="btn btn-sm custom-button">Update</a>
                     </td>
-                    <td style="text-align: center;">
-                        <a href="{% url "delete_order" order.id %}" class="btn btn-sm custom-button">Delete Order</a>
+                    <td style="text-align: center; width: 10%;">
+                        <a href="{% url "delete_order" order.id %}" class="btn btn-sm custom-button">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

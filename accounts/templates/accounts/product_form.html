@@ -1,0 +1,39 @@
+{% extends "accounts/main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-subtitle bg-dark text-white pt-2 text-center">
+                    <h4>{{ function }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="d-flex justify-content-center mt-2" style="padding-bottom: 10px;">
+                            <label for="{{ field.id_for_label }}" class="form-label" style="padding-right: 10%; width: 30%;">{{ field.label }}</label>
+                            
+                            {{ field }}
+                            
+                            
+                        </div>
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <input type="submit" value="{{ function }}" class="btn custom-button btn-sm">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

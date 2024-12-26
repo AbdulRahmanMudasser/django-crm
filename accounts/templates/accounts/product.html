@@ -15,6 +15,12 @@
                     <th>Product</th>
                     <th>Category</th>
                     <th>Price</th>
+
+                    <th></th>
+                    <th></th>
+
+                    <!-- <th style="text-align: center; width: 10%;">Update</th>
+                    <th style="text-align: center; width: 10%;">Delete</th> -->
                 </tr>
 
                 {% for product in products %}
@@ -22,6 +28,13 @@
                         <td>{{ product }}</td>
                         <td>{{ product.category }}</td>
                         <td>${{ product.price }}</td>
+
+                        <td style="text-align: center; width: 5%;">
+                            <a href="" class="btn btn-sm custom-button">Update</a>
+                        </td>
+                        <td style="text-align: center; width: 5%;">
+                            <a href="" class="btn btn-sm custom-button">Delete</a>
+                        </td>
                     </tr>
                 {% endfor %}
 

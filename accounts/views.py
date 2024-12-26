@@ -49,6 +49,31 @@ def products(request):
     
     return render(request, 'accounts/product.html', context)
 
+# Create Product View
+def create_product(request):
+    # Product Form
+    form = ProductForm()
+    
+    # Check Request Method is POST
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Product List Template
+            return redirect('products')
+            
+    context = {
+        'form': form,
+        'function': 'Create New Product'
+    }
+    
+    # Render Product Form Template
+    return render(request, 'accounts/product_form.html', context)
+
 # Customer View
 def customer(request, pk):
     # Get Customer With id
