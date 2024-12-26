@@ -43,8 +43,12 @@ def products(request):
     # Get Products
     products = Product.objects.all()
     
+    # Get Products Count
+    products_count = Product.objects.all().count()
+    
     context = {
-        'products': products
+        'products': products,
+        'products_count': products_count,
     }
     
     return render(request, 'accounts/product.html', context)
