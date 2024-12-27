@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from .forms import *
 from .models import *
+from .filters import *
 
 # Home View
 def home(request):
@@ -140,10 +141,17 @@ def customer(request, pk):
     # Get Orders Count Placed By Customer
     orders_count = orders.count()
     
+    # Order Filter
+    filter = OrderFilter(request.GET, queryset=orders)
+    
+    # Searched Orders
+    orders = filter.qs
+    
     context = {
         'customer': customer,
         'orders': orders,
         'orders_count': orders_count,
+        'filter': filter,
     }
     
     # Render Customers Template
