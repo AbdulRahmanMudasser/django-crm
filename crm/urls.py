@@ -16,6 +16,12 @@ urlpatterns = [
     # Create Product URL
     path('create_product/', views.create_product, name='create_product'),
     
+    # Update Product URL
+    path('update_product/<str:pk>', views.update_product, name='update_product'),
+    
+    # Delete Product URL
+    path('delete_product/<str:pk>', views.delete_product, name='delete_product'),
+    
     # View Customers URL
     path('customers/<str:pk>', views.customer, name='customer'),
     

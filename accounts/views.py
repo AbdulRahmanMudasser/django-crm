@@ -78,6 +78,55 @@ def create_product(request):
     # Render Product Form Template
     return render(request, 'accounts/product_form.html', context)
 
+# Update Product View
+def update_product(request, pk):
+    # Get Product With id
+    product = get_object_or_404(Product, id=pk)
+    
+    # Product Form
+    form = ProductForm(instance=product)
+    
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = ProductForm(request.POST, instance=product)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Products Template
+            return redirect('products')
+        
+    context = {
+        'form': form,
+        'function': 'Update Product'
+    }
+    
+    # Render Product Form Template
+    return render(request, 'accounts/product_form.html', context)
+
+# Delete Product View
+def delete_product(request, pk):
+    # Get Product With id
+    product = get_object_or_404(Product, id=pk)
+    
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Delete Product
+        product.delete()
+        
+        # Redirect to Products Template
+        return redirect('products')
+    
+    context = {
+        'product': product,
+    }
+    
+    # Render Delete Product Template
+    return render(request, 'accounts/delete_product.html', context)
+
 # Customer View
 def customer(request, pk):
     # Get Customer With id
@@ -131,6 +180,7 @@ def create_order(request, pk):
         'function': 'Create Order'
     }
     
+    # Render Order Form Template
     return render(request, 'accounts/order_form.html', context)
 
 # Update Order View
@@ -158,6 +208,7 @@ def update_order(request, pk):
         'function': 'Update Order'
     }
     
+    # Render Order Form Template
     return render(request, 'accounts/order_form.html', context)
 
 # Delete Order View
@@ -170,13 +221,13 @@ def delete_order(request, pk):
         order.delete()
         
         # Redirect to Home Page
-        return redirect('/')
+        return redirect('home')
     
     context = {
         'order': order,
     }
     
-    return render(request, 'accounts/delete_form.html', context)
+    return render(request, 'accounts/delete_order.html', context)
 
 # Create Customer View
 def create_customer(request):
