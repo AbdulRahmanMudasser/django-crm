@@ -1,0 +1,24 @@
+{% extends "accounts/main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<br>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-md-3">
+        <div class="card card-body text-center">
+            <p>Are You Sure You Want To Delete "{{ customer }}"?</p>
+
+            <form action="{% url 'delete_customer' customer.id %}" method="post">
+                {% csrf_token %}
+
+                <a href="{% url 'home' %}" class="btn btn-sm custom-button">Cancel</a>
+                <button type="submit" class="btn btn-sm custom-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

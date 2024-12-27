@@ -15,9 +15,9 @@
                 <div class="card-body">
                     <a href="{% url 'create_order' customer.id %}" class="btn btn-sm custom-button-1">Create New Customer Order</a>
 
-                    <button type="button" class="btn custom-button-1 btn-sm">Update Customer</button>
+                    <a href="{% url 'update_customer' customer.id %}" class="btn btn-sm custom-button-1">Update Customer Information</a>
 
-                    <button type="button" class="btn custom-button-1 btn-sm">Delete Customer</button>
+                    <a href="{% url 'delete_customer' customer.id %}" class="btn btn-sm custom-button-1">Delete Customer</a>
                 </div>
             </div>
         </div>

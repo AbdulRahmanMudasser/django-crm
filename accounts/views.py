@@ -36,6 +36,7 @@ def home(request):
         'out_for_delivery_orders': out_for_delivery_orders,
     }
     
+    # Render Dashboard Template
     return render(request,'accounts/dashboard.html', context)
 
 # Products View
@@ -51,6 +52,7 @@ def products(request):
         'products_count': products_count,
     }
     
+    # Render Products Template
     return render(request, 'accounts/product.html', context)
 
 # Create Product View
@@ -144,6 +146,7 @@ def customer(request, pk):
         'orders_count': orders_count,
     }
     
+    # Render Customers Template
     return render(request, 'accounts/customer.html', context)
 
 # Create Order View
@@ -227,6 +230,7 @@ def delete_order(request, pk):
         'order': order,
     }
     
+    # Render Delete Order Template
     return render(request, 'accounts/delete_order.html', context)
 
 # Create Customer View
@@ -244,11 +248,62 @@ def create_customer(request):
             form.save()
             
             # Redirect to Home Page
-            return redirect('/')
+            return redirect('home')
     
     context = {
         'form': form,
         'function': 'Create Customer'
     }
     
+    # Render Customer Form Template
     return render(request, 'accounts/customer_form.html', context)
+
+# Update Customer View
+def update_customer(request, pk):
+    # Get Customer With id
+    customer = get_object_or_404(Customer, id=pk)
+    
+    # Customer Form
+    form = CustomerForm(instance=customer)
+    
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = CustomerForm(request.POST, instance=customer)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            # Redirect to Current Customer Form With id
+            return redirect(f'/customers/{pk}')
+        
+    context = {
+        'form':form,
+        'function': 'Update Customer',
+    }
+    
+    # Render Customer Form Template
+    return render(request, 'accounts/customer_form.html', context)
+
+# Delete Customer View
+def delete_customer(request, pk):
+    # Get Customer With id
+    customer = get_object_or_404(Customer, id=pk)
+    
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Delete Customer
+        customer.delete()
+        
+        # Redirect to Home Page
+        return redirect('home')
+    
+    context = {
+        'customer': customer,
+    }
+    
+    # Render Delete Customer Template
+    return render(request, 'accounts/delete_customer.html', context)
+        

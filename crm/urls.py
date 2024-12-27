@@ -36,4 +36,10 @@ urlpatterns = [
     
     # Create Customer URL
     path('create_customer/', views.create_customer, name='create_customer'),
+    
+    # Update Customer URL
+    path('update_customer/<str:pk>', views.update_customer, name='update_customer'),
+    
+    # Delete Customer URL
+    path('delete_customer/<str:pk>', views.delete_customer, name='delete_customer'),
 ]
