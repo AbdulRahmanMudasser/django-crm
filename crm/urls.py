@@ -7,6 +7,12 @@ urlpatterns = [
     # Admin Panel URL
     path('admin/', admin.site.urls),  
     
+    # Login URL
+    path('login/', views.login, name='login'),
+    
+    # Register URL
+    path('register/', views.register, name='register'),
+    
     # Home Page URL
     path('', views.home, name='home'),
     

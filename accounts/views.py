@@ -1,8 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
+from django.contrib.auth.forms import UserCreationForm
 from .forms import *
 from .models import *
 from .filters import *
+
+# Login View
+def login(request):
+    context = {}
+    
+    # Render Login Template
+    return render(request, 'accounts/login.html', context)
+
+# Register User View
+def register(request):
+    # Create Form
+    form = UserCreationForm()
+    
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Process Submitted Data
+        form = UserCreationForm(request.POST)
+        
+        # Check if Form is Valid
+        if form.is_valid():
+            # Save Form
+            form.save()
+            
+            return redirect('home')
+    
+    context = {
+        'form': form,
+    }
+    
+    # Render Register Template
+    return render(request, 'accounts/register.html', context)
 
 # Home View
 def home(request):
