@@ -15,12 +15,14 @@ def login(request):
 # Register User View
 def register(request):
     # Create Form
-    form = UserCreationForm()
+    # form = UserCreationForm()
+    form = UserRegistrationForm()
     
     # Check if Request Method is POST
     if request.method == 'POST':
         # Process Submitted Data
-        form = UserCreationForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         
         # Check if Form is Valid
         if form.is_valid():
