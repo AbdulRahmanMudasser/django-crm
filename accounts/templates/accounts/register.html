@@ -1,9 +1,42 @@
-<h3>Register Page</h3>
+{% extends 'accounts/authentication.html' %}
+
+{% block title %}Register Page{% endblock %}
+
+{% block content %}
 
 <form action="" method="post">
+
+    <h3>Registration Page</h3>
+    
     {% csrf_token %}
+    
+    <label for="username">{{ form.username.label }}</label>
+    {{ form.username }}
 
-    {{ form.as_p }}
+    <label for="email">{{ form.email.label }}</label>
+    {{ form.email }}
 
-    <input type="submit" value="Create User">
+    <label for="password1">{{ form.password1.label }}</label>
+    {{ form.password1 }}
+
+    <label for="password2">{{ form.password2.label }}</label>
+    {{ form.password2 }}
+
+    <input type="submit" value="Register User" class="custom-button">
+
+    {% if form.errors %}
+    <div class="form-errors">
+        <ul>
+            {% for field, errors in form.errors.items %}
+            <li>{{ field|capfirst }}: {{ errors|join:", " }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="form-footer">
+        <p>Already have an account?<span><a href="{% url 'login' %}">Login</a></span></p>
+    </div>
 </form>
+
+{% endblock %}
