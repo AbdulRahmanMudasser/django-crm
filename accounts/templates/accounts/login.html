@@ -1,5 +1,7 @@
 {% extends 'accounts/authentication.html' %}
 
+{% load custom_filters %}
+
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
@@ -22,7 +24,9 @@
     <div class="form-errors">
         <ul>
             {% for field, errors in form.errors.items %}
-            <li>{{ field|capfirst }}: {{ errors|join:", " }}</li>
+            {% with field_labels=field|get_field_label %}
+            <li>{{ field_labels|default:field|capfirst }}: {{ errors|join:", " }}</li>
+            {% endwith %}
             {% endfor %}
         </ul>
     </div>
