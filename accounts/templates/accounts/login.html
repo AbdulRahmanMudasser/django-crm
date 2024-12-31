@@ -1,73 +1,47 @@
 {% extends 'accounts/authentication.html' %}
 
-{% load custom_filters %}
-
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
 
 <form action="" method="post">
-
     <h3>Login Page</h3>
-    
+
     {% csrf_token %}
     
-    <label for="username">{{ form.username.label }}</label>
-    {{ form.username }}
+    <!-- Username Field -->
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+    
+    <!-- Password Field -->
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
 
-    <label for="password">{{ form.password.label }}</label>
-    {{ form.password }}
+    <!-- Submit Button -->
+    <input type="submit" value="Login User" class="custom-button">
 
-    <input type="submit" value="Login" class="custom-button">
-
+    <!-- Display Errors -->
     {% if form.errors %}
     <div class="form-errors">
         <ul>
             {% for field, errors in form.errors.items %}
-            {% with field_labels=field|get_field_label %}
-            <li>{{ field_labels|default:field|capfirst }}: {{ errors|join:", " }}</li>
-            {% endwith %}
+            <li>{{ field|capfirst }}: {{ errors|join:", " }}</li>
             {% endfor %}
         </ul>
     </div>
     {% endif %}
 
-    {% comment %} Simple Message {% endcomment %}
-    {% comment %} {% if messages %}
-    <div class="messages">
+    {% if messages %}
+    <div class="messages form-errors">
         {% for message in messages %}
         <div class="alert {{ message.tags }}">{{ message }}</div>
         {% endfor %}
     </div>
-    {% endif %} {% endcomment %}
+    {% endif %}
 
-    {% comment %} Message in Alert Box {% endcomment %}
-    {% comment %} {% if messages %}
-    <script>
-        {% for message in messages %}
-            {% if message.tags == 'success' %}
-                alert("{{ message|escapejs }}");
-            {% endif %}
-        {% endfor %}
-    </script>
-    {% endif %}     {% endcomment %}
-
-    {% comment %} Message in Styled Alert Box {% endcomment %}
-    <script>
-        {% for message in messages %}
-            {% if message.tags == 'success' %}
-                Swal.fire({
-                    title: 'Success!',
-                    text: "{{ message|escapejs }}",
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            {% endif %}
-        {% endfor %}
-    </script>    
-
+    <!-- Form Footer -->
     <div class="form-footer">
-        <p>Don't have an account?<span><a href="{% url 'register' %}">Register</a></span></p>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
     </div>
 </form>
 

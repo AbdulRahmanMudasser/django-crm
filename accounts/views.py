@@ -1,13 +1,36 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import *
 from .models import *
 from .filters import *
 
 # Login View
-def login(request):
+def login_page(request):
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Grab Username from POST Request
+        username = request.POST.get('username')
+        # Grab Password from POST Request
+        password = request.POST.get('password')
+        
+        # Authenticate User
+        user = authenticate(request, username=username, password=password)
+        
+        # Check if User is Not Empty
+        if user is not None:
+            # Login User
+            login(request, user)
+            
+            # Redirect User to Home
+            return redirect('home')
+        
+        else:
+            # Show Error Message
+            messages.error(request, 'Invalid Username or Password')
+    
     context = {}
     
     # Render Login Template
