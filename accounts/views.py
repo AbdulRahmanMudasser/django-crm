@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from .forms import *
 from .models import *
 from .filters import *
@@ -26,10 +27,17 @@ def register(request):
         
         # Check if Form is Valid
         if form.is_valid():
-            # Save Form
-            form.save()
+            # Save User But Do Not Commit Yet
+            user = form.save(commit=False)
             
-            return redirect('home')
+            # Save User Also Commit
+            user.save()
+            
+            # Disply Success Message
+            messages.success(request, f"Account Created {user.username}")
+            
+            # Redirect to Login Template
+            return redirect('login')
     
     context = {
         'form': form,

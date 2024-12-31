@@ -32,6 +32,40 @@
     </div>
     {% endif %}
 
+    {% comment %} Simple Message {% endcomment %}
+    {% comment %} {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %} {% endcomment %}
+
+    {% comment %} Message in Alert Box {% endcomment %}
+    {% comment %} {% if messages %}
+    <script>
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                alert("{{ message|escapejs }}");
+            {% endif %}
+        {% endfor %}
+    </script>
+    {% endif %}     {% endcomment %}
+
+    {% comment %} Message in Styled Alert Box {% endcomment %}
+    <script>
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                Swal.fire({
+                    title: 'Success!',
+                    text: "{{ message|escapejs }}",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            {% endif %}
+        {% endfor %}
+    </script>    
+
     <div class="form-footer">
         <p>Don't have an account?<span><a href="{% url 'register' %}">Register</a></span></p>
     </div>
