@@ -7,6 +7,19 @@
 <br>
 
 <div class="row">
+    <script>
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                Swal.fire({
+                    title: 'Success!',
+                    text: "{{ message|escapejs }}",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            {% endif %}
+        {% endfor %}
+    </script> 
+
     <div class="col-md-5">
         <h5>CUSTOMERS</h5>
         <hr>
@@ -72,5 +85,7 @@
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}
