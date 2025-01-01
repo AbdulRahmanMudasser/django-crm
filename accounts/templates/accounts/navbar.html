@@ -12,7 +12,11 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Dashboard</a>
-        <a class="nav-link" href="{% url "products" %}">Products</a>
+        <a class="nav-link" href="{% url 'products' %}">Products</a>
+      </div>
+      <div class="ms-auto d-flex align-items-center">
+        <span class="welcome-text">Hello, {{ request.user }}</span>
+        <a class="btn btn-sm logout-button ms-2" href="{% url 'logout' %}">Logout User</a>
       </div>
     </div>
   </div>

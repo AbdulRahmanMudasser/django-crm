@@ -7,8 +7,8 @@ from .forms import *
 from .models import *
 from .filters import *
 
-# Login View
-def login_page(request):
+# Login User View
+def login_user(request):
     # Check if Request Method is POST
     if request.method == 'POST':
         # Grab Username from POST Request
@@ -68,6 +68,13 @@ def register(request):
     
     # Render Register Template
     return render(request, 'accounts/register.html', context)
+
+# Logout User View
+def logout_user(request):
+    logout(request)
+    
+    # Redirect to Login Template
+    return redirect('login')
 
 # Home View
 def home(request):

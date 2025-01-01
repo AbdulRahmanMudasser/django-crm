@@ -8,10 +8,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),  
     
     # Login URL
-    path('login/', views.login_page, name='login'),
+    path('login/', views.login_user, name='login'),
     
     # Register URL
     path('register/', views.register, name='register'),
+    
+    # Logout URL
+    path('logout/', views.logout_user, name='logout'),
     
     # Home Page URL
     path('', views.home, name='home'),
