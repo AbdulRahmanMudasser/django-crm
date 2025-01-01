@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import *
 from .models import *
@@ -9,65 +10,77 @@ from .filters import *
 
 # Login User View
 def login_user(request):
-    # Check if Request Method is POST
-    if request.method == 'POST':
-        # Grab Username from POST Request
-        username = request.POST.get('username')
-        # Grab Password from POST Request
-        password = request.POST.get('password')
-        
-        # Authenticate User
-        user = authenticate(request, username=username, password=password)
-        
-        # Check if User is Not Empty
-        if user is not None:
-            # Login User
-            login(request, user)
+    # Check if User is Already Authenticated Restrict User From Login Page
+    if request.user.is_authenticated:
+        # Redirect to Home Page
+        return redirect('home')
+    
+    else:
+        # Check if Request Method is POST
+        if request.method == 'POST':
+            # Grab Username from POST Request
+            username = request.POST.get('username')
+            # Grab Password from POST Request
+            password = request.POST.get('password')
             
-            # Redirect User to Home
-            return redirect('home')
+            # Authenticate User
+            user = authenticate(request, username=username, password=password)
+            
+            # Check if User is Not Empty
+            if user is not None:
+                # Login User
+                login(request, user)
+                
+                # Redirect User to Home
+                return redirect('home')
+            
+            else:
+                # Show Error Message
+                messages.error(request, 'Invalid Username or Password')
         
-        else:
-            # Show Error Message
-            messages.error(request, 'Invalid Username or Password')
-    
-    context = {}
-    
-    # Render Login Template
-    return render(request, 'accounts/login.html', context)
+        context = {}
+        
+        # Render Login Template
+        return render(request, 'accounts/login.html', context)
 
 # Register User View
 def register(request):
-    # Create Form
-    # form = UserCreationForm()
-    form = UserRegistrationForm()
+    # Check if User is Already Authenticated Restrict User From Register Page
+    if request.user.is_authenticated:
+        # Redirect to Home Page
+        return redirect('home')
     
-    # Check if Request Method is POST
-    if request.method == 'POST':
-        # Process Submitted Data
-        # form = UserCreationForm(request.POST)
-        form = UserRegistrationForm(request.POST)
+    else:
+        # Create Form
+        # form = UserCreationForm()
+        form = UserRegistrationForm()
         
-        # Check if Form is Valid
-        if form.is_valid():
-            # Save User But Do Not Commit Yet
-            user = form.save(commit=False)
+        # Check if Request Method is POST
+        if request.method == 'POST':
+            # Process Submitted Data
+            # form = UserCreationForm(request.POST)
+            form = UserRegistrationForm(request.POST)
             
-            # Save User Also Commit
-            user.save()
-            
-            # Disply Success Message
-            messages.success(request, f"Account Created {user.username}")
-            
-            # Redirect to Login Template
-            return redirect('login')
-    
-    context = {
-        'form': form,
-    }
-    
-    # Render Register Template
-    return render(request, 'accounts/register.html', context)
+            # Check if Form is Valid
+            if form.is_valid():
+                # Save User But Do Not Commit Yet
+                user = form.save(commit=False)
+                
+                # Save User Also Commit
+                user.save()
+                
+                # Disply Success Message
+                messages.success(request, f"Account Created {user.username}")
+                
+                # Redirect to Login Template
+                return redirect('login')
+        
+        context = {
+            'form': form,
+        }
+        
+        # Render Register Template
+        return render(request, 'accounts/register.html', context)
 
 # Logout User View
 def logout_user(request):
@@ -77,6 +90,7 @@ def logout_user(request):
     return redirect('login')
 
 # Home View
+@login_required(login_url='login')
 def home(request):
     # Get Customers
     customers = Customer.objects.all()
@@ -113,6 +127,7 @@ def home(request):
     return render(request,'accounts/dashboard.html', context)
 
 # Products View
+@login_required(login_url='login')
 def products(request):
     # Get Products
     products = Product.objects.all()
@@ -129,6 +144,7 @@ def products(request):
     return render(request, 'accounts/product.html', context)
 
 # Create Product View
+@login_required(login_url='login')
 def create_product(request):
     # Product Form
     form = ProductForm()
@@ -154,6 +170,7 @@ def create_product(request):
     return render(request, 'accounts/product_form.html', context)
 
 # Update Product View
+@login_required(login_url='login')
 def update_product(request, pk):
     # Get Product With id
     product = get_object_or_404(Product, id=pk)
@@ -183,6 +200,7 @@ def update_product(request, pk):
     return render(request, 'accounts/product_form.html', context)
 
 # Delete Product View
+@login_required(login_url='login')
 def delete_product(request, pk):
     # Get Product With id
     product = get_object_or_404(Product, id=pk)
@@ -203,6 +221,7 @@ def delete_product(request, pk):
     return render(request, 'accounts/delete_product.html', context)
 
 # Customer View
+@login_required(login_url='login')
 def customer(request, pk):
     # Get Customer With id
     customer = Customer.objects.get(id=pk)
@@ -230,6 +249,7 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', context)
 
 # Create Order View
+@login_required(login_url='login')
 def create_order(request, pk):
     # Instance of Form Set
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), can_delete=False, extra=3)
@@ -267,6 +287,7 @@ def create_order(request, pk):
     return render(request, 'accounts/order_form.html', context)
 
 # Update Order View
+@login_required(login_url='login')
 def update_order(request, pk):
     # Get Order With id
     order = Order.objects.get(id=pk)
@@ -295,6 +316,7 @@ def update_order(request, pk):
     return render(request, 'accounts/order_form.html', context)
 
 # Delete Order View
+@login_required(login_url='login')
 def delete_order(request, pk):
     # Get Order With id
     order = Order.objects.get(id=pk)
@@ -314,6 +336,7 @@ def delete_order(request, pk):
     return render(request, 'accounts/delete_order.html', context)
 
 # Create Customer View
+@login_required(login_url='login')
 def create_customer(request):
     # Customer Form
     form = CustomerForm()
@@ -339,6 +362,7 @@ def create_customer(request):
     return render(request, 'accounts/customer_form.html', context)
 
 # Update Customer View
+@login_required(login_url='login')
 def update_customer(request, pk):
     # Get Customer With id
     customer = get_object_or_404(Customer, id=pk)
@@ -368,6 +392,7 @@ def update_customer(request, pk):
     return render(request, 'accounts/customer_form.html', context)
 
 # Delete Customer View
+@login_required(login_url='login')
 def delete_customer(request, pk):
     # Get Customer With id
     customer = get_object_or_404(Customer, id=pk)
