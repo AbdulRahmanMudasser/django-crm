@@ -55,12 +55,32 @@
 </div>
 
 <div class="row">
-    <div class="col-md">
-        <div class="card card-body">
+    <div class="col-md-12">
+        <div class="card card-body shadow-sm">
             <form action="" method="get">
-                {{ filter.form }}
-
-                <button class="btn custom-button" type="submit">Search Customer</button>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="product" class="form-label"><b>Product:</b></label>
+                        {{ filter.form.product }}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="status" class="form-label"><b>Status:</b></label>
+                        {{ filter.form.status }}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="date_after" class="form-label"><b>Orders Placed After:</b></label>
+                        {{ filter.form.start_date }}
+                    </div>
+                    <div class="col-md-3">
+                        <label for="date_before" class="form-label"><b>Orders Placed Before:</b></label>
+                        {{ filter.form.end_date }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col text-end">
+                        <button class="btn custom-button" type="submit">Search</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
