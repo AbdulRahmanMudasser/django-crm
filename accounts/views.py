@@ -4,46 +4,46 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .decorators import unauthenticated_user
 from .forms import *
 from .models import *
 from .filters import *
 
 # Login User View
+@unauthenticated_user
 def login_user(request):
-    # Check if User is Already Authenticated Restrict User From Login Page
-    if request.user.is_authenticated:
-        # Redirect to Home Page
-        return redirect('home')
+    # Check if Request Method is POST
+    if request.method == 'POST':
+        # Grab Username from POST Request
+        username = request.POST.get('username')
+        # Grab Password from POST Request
+        password = request.POST.get('password')
+        
+        # Authenticate User
+        user = authenticate(request, username=username, password=password)
+        
+        # Check if User is Not Empty
+        if user is not None:
+            # Login User
+            login(request, user)
+            
+            # Show Success Message
+            messages.success(request, 'Successfully Logged In')
+            
+            # Redirect User to Home
+            return redirect('home')
+        
+        else:
+            # Show Error Message
+            messages.error(request, 'Invalid Username or Password')
     
-    else:
-        # Check if Request Method is POST
-        if request.method == 'POST':
-            # Grab Username from POST Request
-            username = request.POST.get('username')
-            # Grab Password from POST Request
-            password = request.POST.get('password')
-            
-            # Authenticate User
-            user = authenticate(request, username=username, password=password)
-            
-            # Check if User is Not Empty
-            if user is not None:
-                # Login User
-                login(request, user)
-                
-                # Redirect User to Home
-                return redirect('home')
-            
-            else:
-                # Show Error Message
-                messages.error(request, 'Invalid Username or Password')
-        
-        context = {}
-        
-        # Render Login Template
-        return render(request, 'accounts/login.html', context)
+    context = {}
+    
+    # Render Login Template
+    return render(request, 'accounts/login.html', context)
 
 # Register User View
+@unauthenticated_user
 def register(request):
     # Check if User is Already Authenticated Restrict User From Register Page
     if request.user.is_authenticated:
@@ -411,4 +411,39 @@ def delete_customer(request, pk):
     
     # Render Delete Customer Template
     return render(request, 'accounts/delete_customer.html', context)
+
+# Login User View
+# def login_user(request):
+#     # Check if User is Already Authenticated Restrict User From Login Page
+#     if request.user.is_authenticated:
+#         # Redirect to Home Page
+#         return redirect('home')
+    
+#     else:
+#         # Check if Request Method is POST
+#         if request.method == 'POST':
+#             # Grab Username from POST Request
+#             username = request.POST.get('username')
+#             # Grab Password from POST Request
+#             password = request.POST.get('password')
+            
+#             # Authenticate User
+#             user = authenticate(request, username=username, password=password)
+            
+#             # Check if User is Not Empty
+#             if user is not None:
+#                 # Login User
+#                 login(request, user)
+                
+#                 # Redirect User to Home
+#                 return redirect('home')
+            
+#             else:
+#                 # Show Error Message
+#                 messages.error(request, 'Invalid Username or Password')
+        
+#         context = {}
+        
+#         # Render Login Template
+#         return render(request, 'accounts/login.html', context)
         
